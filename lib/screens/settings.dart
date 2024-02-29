@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:socialmedia/auth/register/register.dart';
+import 'package:socialmedia/landing/landing_page.dart';
 import 'package:socialmedia/utils/firebase.dart';
 import 'package:socialmedia/view_models/theme/theme_view_model.dart';
 
@@ -194,7 +194,7 @@ class _SettingState extends State<Setting> {
                   setState(() {
                     Navigator.of(context).push(
                       CupertinoPageRoute(
-                        builder: (_) => const Register(),
+                        builder: (_) => const Landing(),
                       ),
                     );
                   });

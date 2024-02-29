@@ -59,9 +59,9 @@ class _LandingState extends State<Landing> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
-                        Navigator.of(context).pushReplacement(
+                        Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (_) => const Login(),
                           ),
@@ -97,9 +97,9 @@ class _LandingState extends State<Landing> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
-                        Navigator.of(context).pushReplacement(
+                        Navigator.of(context).push(
                           CupertinoPageRoute(
                             builder: (_) => const Register(),
                           ),
@@ -165,7 +165,9 @@ class _AnimatedTextState extends State<AnimatedText>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {

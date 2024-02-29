@@ -8,8 +8,8 @@ class ThemeProvider extends ChangeNotifier {
   bool _darkTheme = false;
   bool get dark => _darkTheme;
 
-  ThemeProvider() {
-    _darkTheme = false;
+  appProvider() {
+    _darkTheme = true;
     _loadfromPrefs();
   }
 

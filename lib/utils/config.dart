@@ -4,6 +4,7 @@ import 'package:socialmedia/firebase_options.dart';
 class Config {
   static initFirebase() async {
     await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 }

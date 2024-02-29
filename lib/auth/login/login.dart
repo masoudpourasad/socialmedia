@@ -27,7 +27,6 @@ class _LoginState extends State<Login> {
       progressIndicator: circularProgress(context),
       isLoading: viewModel.loading,
       child: Scaffold(
-        backgroundColor: Colors.white,
         key: viewModel.scaffoldKey,
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
@@ -82,15 +81,13 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 const SizedBox(width: 5.0),
-                GestureDetector(
+                InkWell(
                   onTap: () {
-                    setState(() {
-                      Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (_) => const Register(),
-                        ),
-                      );
-                    });
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const Register(),
+                      ),
+                    );
                   },
                   child: Text(
                     'Sign Up',
@@ -109,94 +106,94 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}
 
-  buildForm(BuildContext context, LoginViewModel viewModel) {
-    return Form(
-      key: viewModel.formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Column(
-        children: [
-          TextFormBuilder(
-            enabled: !viewModel.loading,
-            prefix: Ionicons.mail_outline,
-            hintText: "Email",
-            textInputAction: TextInputAction.next,
-            validateFunction: Validations.validateEmail,
-            onSaved: (String val) {
-              viewModel.setEmail(val);
-            },
-            focusNode: viewModel.emailFN,
-            nextFocusNode: viewModel.passFN,
-          ),
-          const SizedBox(height: 15.0),
-          PasswordFormBuilder(
-            enabled: !viewModel.loading,
-            prefix: Ionicons.lock_closed_outline,
-            suffix: Ionicons.eye_outline,
-            hintText: "Password",
-            textInputAction: TextInputAction.done,
-            validateFunction: Validations.validatePassword,
-            submitAction: () => viewModel.login(context),
-            obscureText: true,
-            onSaved: (String val) {
-              viewModel.setPassword(val);
-            },
-            focusNode: viewModel.passFN,
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: InkWell(
-                onTap: () => viewModel.forgotPassword(context),
-                child: SizedBox(
-                  width: 130,
-                  height: 40,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Forgot Password?',
-                      style: GoogleFonts.roboto(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary,
-                        decoration: TextDecoration.underline,
-                      ),
+@override
+Widget buildForm(BuildContext context, LoginViewModel viewModel) {
+  return Form(
+    key: viewModel.formKey,
+    autovalidateMode: AutovalidateMode.onUserInteraction,
+    child: Column(
+      children: [
+        TextFormBuilder(
+          enabled: !viewModel.loading,
+          prefix: Ionicons.mail_outline,
+          hintText: "Email",
+          textInputAction: TextInputAction.next,
+          validateFunction: Validations.validateEmail,
+          onSaved: (String val) {
+            viewModel.setEmail(val);
+          },
+          focusNode: viewModel.emailFN,
+          nextFocusNode: viewModel.passFN,
+        ),
+        const SizedBox(height: 15.0),
+        PasswordFormBuilder(
+          enabled: !viewModel.loading,
+          prefix: Ionicons.lock_closed_outline,
+          suffix: Ionicons.eye_outline,
+          hintText: "Password",
+          textInputAction: TextInputAction.done,
+          validateFunction: Validations.validatePassword,
+          submitAction: () => viewModel.login(context),
+          obscureText: true,
+          onSaved: (String val) {
+            viewModel.setPassword(val);
+          },
+          focusNode: viewModel.passFN,
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: InkWell(
+              onTap: () => viewModel.forgotPassword(context),
+              child: SizedBox(
+                width: 130,
+                height: 40,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Forgot Password?',
+                    style: GoogleFonts.roboto(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 10.0),
-          SizedBox(
-            height: 55.0,
-            width: MediaQuery.of(context).size.width - 90.0,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                ),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).colorScheme.secondary,
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          height: 55.0,
+          width: MediaQuery.of(context).size.width - 90.0,
+          child: ElevatedButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
                 ),
               ),
-              // highlightElevation: 4.0,
-              child: Text(
-                'Log in'.toUpperCase(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  letterSpacing: 1.2,
-                ),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Theme.of(context).colorScheme.secondary,
               ),
-              onPressed: () => viewModel.login(context),
             ),
+            child: Text(
+              'Log in'.toUpperCase(),
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                letterSpacing: 1.2,
+              ),
+            ),
+            onPressed: () => viewModel.login(context),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
 }

@@ -158,54 +158,49 @@ class _CreatePostState extends State<CreatePost> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              Text(
-                'Post Caption'.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              TextFormField(
-                initialValue: viewModel.description,
-                decoration: const InputDecoration(
-                  hintText: 'Eg. This is very beautiful place!',
-                  focusedBorder: UnderlineInputBorder(),
-                ),
-                maxLines: null,
-                onChanged: (val) => viewModel.setDescription(val),
-              ),
-              const SizedBox(height: 20.0),
-              Text(
-                'Location'.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              ListTile(
-                contentPadding: const EdgeInsets.all(0.0),
-                title: SizedBox(
-                  width: 250.0,
-                  child: TextFormField(
-                    controller: viewModel.locationTEC,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(0.0),
-                      hintText: 'United States,Los Angeles!',
-                      focusedBorder: UnderlineInputBorder(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      initialValue: viewModel.description,
+                      decoration: const InputDecoration(
+                        hintText: 'Post Caption',
+                        focusedBorder: UnderlineInputBorder(),
+                      ),
+                      maxLines: null,
+                      onChanged: (val) => viewModel.setDescription(val),
                     ),
-                    maxLines: null,
-                    onChanged: (val) => viewModel.setLocation(val),
-                  ),
-                ),
-                trailing: IconButton(
-                  tooltip: "Use your current location",
-                  icon: const Icon(
-                    CupertinoIcons.map_pin_ellipse,
-                    size: 25.0,
-                  ),
-                  iconSize: 30.0,
-                  color: Theme.of(context).colorScheme.secondary,
-                  onPressed: () => viewModel.getLocation(context),
+                    const SizedBox(height: 20.0),
+                    ListTile(
+                      contentPadding: const EdgeInsets.all(0.0),
+                      title: SizedBox(
+                        width: 250.0,
+                        child: TextFormField(
+                          controller: viewModel.locationTEC,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(0.0),
+                            hintText: 'Location',
+                            focusedBorder: UnderlineInputBorder(),
+                          ),
+                          maxLines: null,
+                          onChanged: (val) => viewModel.setLocation(val),
+                        ),
+                      ),
+                      trailing: IconButton(
+                        tooltip: "Use your current location",
+                        icon: const Icon(
+                          CupertinoIcons.map_pin_ellipse,
+                          size: 25.0,
+                        ),
+                        iconSize: 30.0,
+                        color: Theme.of(context).colorScheme.secondary,
+                        onPressed: () => viewModel.getLocation(context),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

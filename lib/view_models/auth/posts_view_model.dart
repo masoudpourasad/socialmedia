@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -62,38 +61,25 @@ class PostsViewModel extends ChangeNotifier {
   }
 
   setUsername(String val) {
-    if (kDebugMode) {
-      print('SetName $val');
-    }
     username = val;
     notifyListeners();
   }
 
   setDescription(String val) {
-    if (kDebugMode) {
-      print('SetDescription $val');
-    }
     description = val;
     notifyListeners();
   }
 
   setLocation(String val) {
-    if (kDebugMode) {
-      print('SetCountry $val');
-    }
     location = val;
     notifyListeners();
   }
 
   setBio(String val) {
-    if (kDebugMode) {
-      print('SetBio $val');
-    }
     bio = val;
     notifyListeners();
   }
 
-  //Functions
   pickImage({bool camera = false, context}) async {
     loading = true;
     notifyListeners();
@@ -180,9 +166,6 @@ class PostsViewModel extends ChangeNotifier {
       resetPost(context);
       notifyListeners();
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
       loading = false;
       resetPost(context);
       showInSnackBar('Uploaded successfully!', context);
@@ -204,9 +187,6 @@ class PostsViewModel extends ChangeNotifier {
             CupertinoPageRoute(builder: (_) => const TabScreen()));
         notifyListeners();
       } catch (e) {
-        if (kDebugMode) {
-          print(e);
-        }
         loading = false;
         showInSnackBar('Uploaded successfully!', context);
         notifyListeners();
@@ -227,10 +207,6 @@ class PostsViewModel extends ChangeNotifier {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(value)));
-    } else {
-      if (kDebugMode) {
-        print('Context is null');
-      }
-    }
+    } else {}
   }
 }

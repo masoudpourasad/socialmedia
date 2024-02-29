@@ -15,7 +15,7 @@ class StoryWidget extends StatelessWidget {
     return SizedBox(
       height: 100.0,
       child: Padding(
-        padding: const EdgeInsets.only(left: 5.0),
+        padding: const EdgeInsets.only(left: 10),
         child: StreamBuilder<QuerySnapshot>(
           stream: userChatsStream(firebaseAuth.currentUser!.uid),
           builder: (context, snapshot) {
@@ -38,11 +38,10 @@ class StoryWidget extends StatelessWidget {
                             statuses.first.data(),
                           );
                           List users = statusListSnapshot.get('whoCanSee');
-                          // remove the current user's id from the Users
-                          // list so we can get the rest of the user's id
+
                           users.remove(firebaseAuth.currentUser!.uid);
                           return _buildStatusAvatar(
-                              statusListSnapshot.get('userId'),
+                              statusListSnapshot.get('userId') as String,
                               statusListSnapshot.id,
                               status.statusId!,
                               index);
@@ -110,7 +109,7 @@ class StoryWidget extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
+                          color: Colors.grey.withOpacity(0.1),
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 2.0,
                           spreadRadius: 0.0,

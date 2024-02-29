@@ -21,13 +21,13 @@ class _FeedsState extends State<Feeds> with AutomaticKeepAliveClientMixin {
 
   int page = 5;
   bool loadingMore = false;
-  ScrollController scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    scrollController.addListener(() async {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
+    _scrollController.addListener(() async {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
         setState(() {
           page = page + 5;
           loadingMore = true;
@@ -44,7 +44,7 @@ class _FeedsState extends State<Feeds> with AutomaticKeepAliveClientMixin {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         title: Text(
           Constants.appName,
           style: const TextStyle(
@@ -89,36 +89,43 @@ class _FeedsState extends State<Feeds> with AutomaticKeepAliveClientMixin {
                       .limit(page)
                       .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasData) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return circularProgress(context);
+                    } else if (snapshot.hasData) {
                       var snap = snapshot.data;
                       List docs = snap!.docs;
-                      return ListView.builder(
-                        controller: scrollController,
-                        itemCount: docs.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          PostModel posts =
-                              PostModel.fromJson(docs[index].data());
-                          return Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: UserPost(post: posts),
-                          );
-                        },
-                      );
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return circularProgress(context);
-                    } else
-                      // ignore: curly_braces_in_flow_control_structures
-                      return const Center(
-                        child: Text(
-                          'No Feeds',
-                          style: TextStyle(
-                            fontSize: 26.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
+                      if (docs.isNotEmpty) {
+                        return ListView.builder(
+                          controller: _scrollController,
+                          itemCount: docs.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            PostModel posts =
+                                PostModel.fromJson(docs[index].data());
+                            return Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: UserPost(post: posts),
+                            );
+                          },
+                        );
+                      } else {
+                        return const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Center(
+                              child: Text(
+                                'No Posts Found!',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    }
+                    return const SizedBox();
                   },
                 ),
               ),

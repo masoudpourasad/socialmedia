@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:socialmedia/auth/login/login.dart';
 import 'package:socialmedia/components/password_text_field.dart';
 import 'package:socialmedia/components/text_form_builder.dart';
 import 'package:socialmedia/utils/constants.dart';
@@ -70,16 +68,8 @@ class _RegisterState extends State<Register> {
                     fontSize: 12.0,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (_) => const Login(),
-                        ),
-                      );
-                    });
-                  },
+                InkWell(
+                  onTap: () => Navigator.pop(context),
                   child: Text(
                     'Login',
                     style: GoogleFonts.roboto(
@@ -98,7 +88,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  buildForm(RegisterViewModel viewModel, BuildContext context) {
+  Widget buildForm(RegisterViewModel viewModel, BuildContext context) {
     return Form(
       key: viewModel.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,

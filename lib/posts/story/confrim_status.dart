@@ -12,7 +12,9 @@ import 'package:socialmedia/view_models/status/status_view_model.dart';
 import 'package:socialmedia/widgets/indicators.dart';
 
 class ConfirmStatus extends StatefulWidget {
-  const ConfirmStatus({super.key});
+  const ConfirmStatus({
+    super.key,
+  });
 
   @override
   State<ConfirmStatus> createState() => _ConfirmStatusState();
@@ -72,6 +74,7 @@ class _ConfirmStatusState extends State<ConfirmStatus> {
           setState(() {
             loading = true;
           });
+
           //check if a user has uploaded a status
           QuerySnapshot snapshot = await statusRef
               .where('userId', isEqualTo: firebaseAuth.currentUser!.uid)
@@ -88,7 +91,7 @@ class _ConfirmStatusState extends State<ConfirmStatus> {
               statusId: uuid.v1(),
               viewers: [],
             );
-            await viewModel.sendStatus(chatListSnapshot.id, message);
+            await viewModel.sendStatus(chatListSnapshot.id, message, true);
             setState(() {
               loading = false;
               Navigator.pop(context);
@@ -103,8 +106,8 @@ class _ConfirmStatusState extends State<ConfirmStatus> {
               statusId: uuid.v1(),
               viewers: [],
             );
-            String id = await viewModel.sendFirstStatus(message);
-            await viewModel.sendStatus(id, message);
+            String id = await viewModel.sendFirstStatus(message, true);
+            await viewModel.sendStatus(id, message, true);
             setState(() {
               loading = false;
               Navigator.pop(context);

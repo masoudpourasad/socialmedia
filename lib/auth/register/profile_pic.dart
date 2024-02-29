@@ -125,7 +125,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
         return FractionallySizedBox(
           heightFactor: .6,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20.0),
               Padding(
@@ -152,7 +152,6 @@ class _ProfilePictureState extends State<ProfilePicture> {
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage();
-                  // viewModel.pickProfilePicture();
                 },
               ),
             ],

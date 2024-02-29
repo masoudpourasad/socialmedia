@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:socialmedia/auth/register/profile_pic.dart';
 import 'package:socialmedia/services/auth_service.dart';
@@ -36,9 +35,7 @@ class RegisterViewModel extends ChangeNotifier {
             password: password,
             country: country,
           );
-          if (kDebugMode) {
-            print(success);
-          }
+
           if (success) {
             Navigator.of(context).pushReplacement(
               CupertinoPageRoute(
@@ -49,9 +46,7 @@ class RegisterViewModel extends ChangeNotifier {
         } catch (e) {
           loading = false;
           notifyListeners();
-          if (kDebugMode) {
-            print(e);
-          }
+
           showInSnackBar(auth.handleFirebaseAuthError(e.toString()), context);
         }
         loading = false;

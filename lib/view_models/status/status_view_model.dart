@@ -72,13 +72,15 @@ class StatusViewModel extends ChangeNotifier {
         ],
       );
       mediaUrl = File(croppedFile!.path);
+
       loading = false;
 
-      Navigator.of(context!).push(
+      Navigator.of(context).push(
         CupertinoPageRoute(
           builder: (_) => const ConfirmStatus(),
         ),
       );
+
       notifyListeners();
     } catch (e) {
       loading = false;
@@ -98,14 +100,14 @@ class StatusViewModel extends ChangeNotifier {
     }
   }
 
-  sendStatus(String chatId, StatusModel message) {
+  sendStatus(String chatId, StatusModel message, context) {
     statusService.sendStatus(
       message,
       chatId,
     );
   }
 
-  Future<String> sendFirstStatus(StatusModel message) async {
+  Future<String> sendFirstStatus(StatusModel message, context) async {
     String newChatId = await statusService.sendFirstStatus(
       message,
     );
@@ -120,7 +122,7 @@ class StatusViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showInSnackBar(String value, BuildContext? context) {
+  void showInSnackBar(String value, context) {
     if (context != null) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context)

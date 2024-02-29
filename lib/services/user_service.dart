@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:socialmedia/models/user.dart';
 import 'package:socialmedia/services/services.dart';
 import 'package:socialmedia/utils/firebase.dart';
@@ -45,9 +44,6 @@ class UserService extends Service {
 
       return true;
     } catch (e) {
-      if (kDebugMode) {
-        print("Error updating profile: $e");
-      }
       return true;
     }
   }

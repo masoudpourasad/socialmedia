@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:socialmedia/view_models/status/status_view_model.dart';
 import '../posts/create_post.dart';
 
-class FabContainer extends StatelessWidget {
+class FabContainer extends StatefulWidget {
   final Widget? page;
   final IconData icon;
   final bool mini;
@@ -18,12 +18,17 @@ class FabContainer extends StatelessWidget {
   });
 
   @override
+  State<FabContainer> createState() => _FabContainerState();
+}
+
+class _FabContainerState extends State<FabContainer> {
+  @override
   Widget build(BuildContext context) {
     StatusViewModel viewModel = Provider.of<StatusViewModel>(context);
     return OpenContainer(
       transitionType: ContainerTransitionType.fade,
       openBuilder: (BuildContext context, VoidCallback _) {
-        return page!;
+        return widget.page!;
       },
       closedElevation: 4.0,
       closedShape: const RoundedRectangleBorder(
@@ -38,9 +43,9 @@ class FabContainer extends StatelessWidget {
           onPressed: () {
             chooseUpload(context, viewModel);
           },
-          mini: mini,
+          mini: widget.mini,
           child: Icon(
-            icon,
+            widget.icon,
             color: Theme.of(context).colorScheme.secondary,
           ),
         );
@@ -54,7 +59,7 @@ class FabContainer extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      builder: (BuildContext context) {
+      builder: (_) {
         return FractionallySizedBox(
           heightFactor: .4,
           child: Column(
@@ -96,9 +101,10 @@ class FabContainer extends StatelessWidget {
                   size: 25.0,
                 ),
                 title: const Text('Add to story'),
-                onTap: () async {
+                onTap: () {
                   Navigator.pop(context);
-                  await viewModel.pickImage();
+
+                  viewModel.pickImage(context: context, camera: false);
                 },
               ),
             ],
