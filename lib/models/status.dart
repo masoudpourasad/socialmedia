@@ -28,6 +28,7 @@ class StatusModel {
     } else {
       type = MessageType.image;
     }
+
     time = json['time'];
   }
 
