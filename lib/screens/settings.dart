@@ -24,14 +24,14 @@ class _SettingState extends State<Setting> {
           },
           child: const Icon(Icons.keyboard_backspace),
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0.0,
         title: const Text(
           "Settings",
           style: TextStyle(),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView(

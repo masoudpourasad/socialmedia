@@ -45,7 +45,7 @@ class Constants {
         .copyWith(
           secondary: lightAccent,
         )
-        .copyWith(background: lightBG),
+        .copyWith(surface: lightBG),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -81,7 +81,7 @@ class Constants {
           secondary: darkAccent,
           brightness: Brightness.dark,
         )
-        .copyWith(background: darkBG),
+        .copyWith(surface: darkBG),
   );
 
   static List<T> map<T>(List list, Function handler) {
